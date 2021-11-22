@@ -1,0 +1,28 @@
+{
+  "name": "check_link",
+  "version": "1.0.0",
+  "description": "check link",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hrodvitnir-Fenrir/Check_Link.git"
+  },
+  "author": "Fenrir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hrodvitnir-Fenrir/Check_Link/issues"
+  },
+  "homepage": "https://github.com/Hrodvitnir-Fenrir/Check_Link#readme",
+  "dependencies": {
+    "discord.js": "^13.3.1",
+    "dotenv": "^10.0.0",
+    "virustotal-api": "^1.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
