@@ -12,22 +12,38 @@ client.once("ready", async () => {
 
 });
 
-let urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+const urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+const urlIgnoreRegex = /((https?:\/\/)(www\.)?(twitch|discord|twitter|youtu(be)?)(\.com|\.tv|\.gg|\.be))/g;
 
 client.on("messageCreate", async (message) => {
-    if (message.content.match(/(https?:\/\/(www\.)?twitch\.tv\/|https?:\/\/(www\.)?discord\.(gg|com)\/|https?:\/\/(www\.)?twitter\.com\/|https?:\/\/(www\.)?youtu.?be(\.com)?\/)/g)) {
-        return;
-    }
     if (message.content.match(urlRegex)) {
-        let link = message.content.match(urlRegex).toString()
-        console.log(link)
-        virusTotal.urlScan(link).then(response => {
-            let resource = response.resource;
-            virusTotal.urlReport(resource).then(result => {
-                console.log(result.positives);
-            })
+        let urls = message.content.match(urlRegex);
+        urls = urls.filter(url => {
+            return !url.match(urlIgnoreRegex);
         });
+        let totalWarning = 0;
+        for (let url of urls) {
+            totalWarning += await getWarningOfLink(url);
+        }
+        if (totalWarning /* != 0 */) {
+            message.delete();
+        }
     }
-})
+});
+
+async function getWarningOfLink(link) {
+    try {
+        const response = await virusTotal.urlScan(link);
+        try {
+            const result = await virusTotal.urlReport(response.resource);
+            return result.positives;
+        } catch (error) {
+            console.log(error);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    return 0;
+}
 
 client.login(process.env.DISCORD_TOCKEN);
