@@ -15,11 +15,10 @@ client.once("ready", async () => {
 let urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
 
 client.on("messageCreate", async (message) => {
-    if (message.content.includes("https://discord.gg/" || "http://discord.gg/" || "https://twitter.com/" || "https://www.youtube.com/" || "https://twitch.tv/")) {
+    if (message.content.includes( /https?:\/\/discord\.gg\// || /https?:\/\/twitter\.com\// || /https?:\/\/www\.youtube\.com\// || /https?:\/\/twitch\.tv\// )) {
         return;
     }
     if (message.content.match(urlRegex)) {
-        console.log(message.content.match(urlRegex))
         let link = message.content.match(urlRegex).toString()
         console.log(link)
         virusTotal.urlScan(link).then(response => {
