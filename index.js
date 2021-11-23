@@ -15,7 +15,7 @@ client.once("ready", async () => {
 let urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
 
 client.on("messageCreate", async (message) => {
-    if (message.content.includes( /https?:\/\/discord\.gg\// || /https?:\/\/twitter\.com\// || /https?:\/\/www\.youtube\.com\// || /https?:\/\/twitch\.tv\// )) {
+    if (message.content.match(/(https?:\/\/(www\.)?twitch\.tv\/|https?:\/\/(www\.)?discord\.(gg|com)\/|https?:\/\/(www\.)?twitter\.com\/|https?:\/\/(www\.)?youtu.?be(\.com)?\/)/g)) {
         return;
     }
     if (message.content.match(urlRegex)) {
