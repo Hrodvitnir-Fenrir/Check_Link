@@ -23,6 +23,6 @@
     "virustotal-api": "^1.1.7"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.22"
   }
 }
